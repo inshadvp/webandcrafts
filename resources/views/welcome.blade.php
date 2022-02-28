@@ -1,4 +1,4 @@
-@extends('employees.layout')
+@extends('layouts.layout')
 
 @section('content')
 <h1 class="text-center" style="margin-top: 10rem;">Welcome to Webandcrafts</h1>

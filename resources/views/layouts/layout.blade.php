@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>Webandcrafts</title>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -28,16 +29,30 @@
   <link rel="stylesheet" href="{{ URL::asset('plugins/summernote/summernote-bs4.min.css') }}">
   <!-- jquery datatable -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+   {{-- ajax --}}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ route('employees.index') }}" class="brand-link">
+    {{-- <a href="{{ route('employees.index') }}" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Webandcrafts</span>
+    </a> --}}
+
+    <a class="brand-link" href="{{ route('logout') }}"
+        onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Webandcrafts</span>
+        {{-- {{ __('Logout') }} --}}
     </a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+      @csrf
+    </form>
+
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar Menu -->
@@ -48,6 +63,14 @@
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Employees
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('operations.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Operations
               </p>
             </a>
           </li>

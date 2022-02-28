@@ -1,4 +1,4 @@
-@extends('employees.layout')
+@extends('layouts.layout')
  
 @section('content')
     <div class="row p-4">
@@ -61,13 +61,15 @@
 
 @push('scripts')
 <script>
-  $(document).ready( function () {
-    $('#table_id').DataTable( {
-        "paging":   false,
-        "ordering": false,
-        "info":     false
-    } );
-} );
+    
+    $(document).ready( function () {
+        $('#table_id').DataTable( {
+            "paging":   false,
+            "ordering": false,
+            "info":     false
+        } );
+    });
+
 </script>
 
 @endpush

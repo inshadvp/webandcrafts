@@ -36,4 +36,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    //elqouent relation
+    public function company(){
+    //- One To One
+        // return $this->hasOne('App\Company');
+        // return $this->hasOne('App\Company','user_id','id');
+
+    //- One To Many
+        return $this->hasMany('App\Company');
+        // return $this->hasMany('App\Company','user_id','id');
+    }
+
+    //- Many to Many
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_user');
+    }
 }

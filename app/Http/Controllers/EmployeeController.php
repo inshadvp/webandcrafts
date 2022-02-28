@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use SebastianBergmann\LinesOfCode\Counter;
 
 class EmployeeController extends Controller
 {
@@ -16,6 +17,12 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $employees = Employee::join('designations', 'designations.id', '=', 'employees.designation')->select('employees.*','designations.name as designation_name')->latest()->paginate(5);
@@ -139,7 +146,7 @@ class EmployeeController extends Controller
         $data['id'] = $request->id;
         $data['name'] = $request->name;
         $data['email'] = $request->email;
-        $data['photo'] = $photo_name;
+        $data['photo'] = $photo_name != '' ? $photo_name : '';
         $data['designation'] = $request->designation;
         Employee::where('id', $request->id)->update($data);
 
@@ -159,5 +166,6 @@ class EmployeeController extends Controller
         return redirect()->route('employees.index')
                         ->with('success','Employee deleted successfully');
     }
+
 
 }
